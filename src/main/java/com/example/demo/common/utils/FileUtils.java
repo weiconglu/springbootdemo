@@ -1,4 +1,4 @@
-package com.example.demo.utils;
+package com.example.demo.common.utils;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
