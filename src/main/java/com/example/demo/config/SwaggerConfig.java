@@ -24,7 +24,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerConfig {
 
-	// http://127.0.0.1:8080/demo/swagger-ui.html
+	// http://127.0.0.1:8080/springbootdemo/swagger-ui.html
 
 	@Bean
 	public Docket docket(Environment environment) {
