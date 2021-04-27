@@ -161,7 +161,7 @@ public class EmployeeController {
 		Employee employee = employeeMapper.selectById(id);
 
 		if (null == employee) {
-			return JsonResult.error(0, "Employee not found");
+			return JsonResult.error(0, "EMPLOYEE NOT FOUND");
 		}
 
 		Map<String, Object> map = new HashMap<>();
@@ -178,10 +178,10 @@ public class EmployeeController {
 		}
 
 		if (null != resultInteger && resultInteger.equals(1)) {
-			return JsonResult.ok(1, "Success");
+			return JsonResult.ok(1, "SUCCESS");
 		}
 
-		return JsonResult.error(2, "Other error");
+		return JsonResult.error(2, "OTHER ERROR");
 	}
 
 	@GetMapping("delete")
