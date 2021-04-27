@@ -45,7 +45,7 @@ public class Employee {
 	 * 默认会为各个字段添加@TableField注解，故一般只需要标识出主键及不属于数据表的字段即可
 	 */
 	private String email;
-	private String gender;
+	private Integer gender;
 	private Integer age;
 
 }

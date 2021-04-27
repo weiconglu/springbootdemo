@@ -3,11 +3,13 @@ CREATE DATABASE springbootdemo /*!40100 DEFAULT CHARACTER SET UTF8MB4 */;
 USE springbootdemo;
 
 CREATE TABLE IF NOT EXISTS tb_t_employee (
-    id INT(11) PRIMARY KEY AUTO_INCREMENT,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     last_name VARCHAR(50),
     email VARCHAR(50),
-    gender CHAR(1),
-    age INT
+    gender INT,
+    age INT,
+    create_time DATETIME,
+    update_time DATETIME
 )  ENGINE=INNODB DEFAULT CHARSET=UTF8MB4 COMMENT='employee';
 
 INSERT INTO tb_t_employee(last_name,email,gender,age) VALUES('Tom','tom@atguigu.com',1,22);

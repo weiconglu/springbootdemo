@@ -3,4 +3,28 @@
 
 <mapper namespace="com.example.demo.mapper.EmployeeMapper">
 
+	<update id="updateByMap" parameterType="java.util.Map">
+		UPDATE
+		tb_t_employee
+		SET
+		<if test="lastName != null and lastName != ''">
+			last_name = #{lastName},
+		</if>
+		<if test="email != null and email != ''">
+			email = #{email},
+		</if>
+		<if test="gender != null">
+			gender = #{gender},
+		</if>
+		<if test="age != null">
+			age = #{age},
+		</if>
+		update_time = DATE_FORMAT(NOW(), '%Y/%m/%d %H:%i:%S')
+		WHERE
+		1 = 1
+		<if test="id != null">
+			AND id = #{id}
+		</if>
+	</update>
+
 </mapper>

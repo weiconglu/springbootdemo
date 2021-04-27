@@ -34,12 +34,12 @@ public class EmployeeController {
 	public JsonResult insertTestData() {
 
 		Employee employee = Employee.builder().build();
-		String gender = null;
+		Integer gender = null;
 		Integer age = null;
 
 		Random random = new Random(); // <------ 随机数生成类
 		for (int i = 1; i < 201; i++) {
-			gender = Integer.toString(random.nextInt(2)); // <------ 使用random随机生成 0或1
+			gender = random.nextInt(2); // <------ 使用random随机生成 0或1
 			age = (int) (Math.random() * 100 + 1); // <------ 使用Math.random()方法生成一个1~100的随机数
 
 			employee.setLastName("Tom" + i);
@@ -56,7 +56,7 @@ public class EmployeeController {
 	@PostMapping("add")
 	public JsonResult add(@ApiParam(value = "姓名", example = "张三") @RequestParam("lastName") String lastName,
 			@ApiParam(value = "邮箱", example = "zs@test.com") @RequestParam("email") String email,
-			@ApiParam(value = "性别", example = "1") @RequestParam("gender") String gender,
+			@ApiParam(value = "性别", example = "1") @RequestParam("gender") Integer gender,
 			@ApiParam(value = "年龄", example = "18") @RequestParam("age") Integer age) {
 
 		// 使用lombok的builder()来生成对象
@@ -70,26 +70,6 @@ public class EmployeeController {
 
 		System.out.println("employee id -> " + employee.getId());
 		Integer resultInteger = employeeMapper.insert(employee); // <------ mybatisplus自动将主键值回写到实体类
-		System.out.println("employee id -> " + employee.getId());
-
-		if (resultInteger == 1) {
-			return JsonResult.ok();
-		}
-
-		return JsonResult.error();
-	}
-
-	@PostMapping("update")
-	public JsonResult update(@ApiParam(value = "姓名", example = "张三") @RequestParam("lastName") String lastName,
-			@ApiParam(value = "邮箱", example = "zs@test.com") @RequestParam("email") String email,
-			@ApiParam(value = "性别", example = "1") @RequestParam("gender") String gender,
-			@ApiParam(value = "年龄", example = "18") @RequestParam("age") Integer age) {
-
-		Employee employee = Employee.builder().lastName(lastName).email(email).gender(gender).age(age).build();
-		employee.setId(1); // <------ 指定要更新的实体在数据表中的id
-
-		System.out.println("employee id -> " + employee.getId());
-		Integer resultInteger = employeeMapper.updateById(employee); // <------ updateById 更新
 		System.out.println("employee id -> " + employee.getId());
 
 		if (resultInteger == 1) {
@@ -136,14 +116,13 @@ public class EmployeeController {
 	public JsonResult selectPage(@RequestParam Integer pageNum, @RequestParam Integer size) {
 
 		// 分页查询，必须先在MybatisPlusConfig.java类中添加分页插件的配置后才能使用
-		List<Employee> list = employeeMapper.selectPage(new Page<Employee>(pageNum, size), null)
-				.getRecords();
+		List<Employee> list = employeeMapper.selectPage(new Page<Employee>(pageNum, size), null).getRecords();
 
 		if (list.size() != 0) {
-			
+
 			// 数据库中总记录数查询出来返回
 			Integer totalSize = employeeMapper.selectCount(null);
-			
+
 			Map<String, Object> resultMap = new HashMap<>();
 			resultMap.put("totalSize", totalSize);
 			resultMap.put("Employees", list);
@@ -152,6 +131,57 @@ public class EmployeeController {
 		}
 
 		return JsonResult.error();
+	}
+
+	@PostMapping("update")
+	@ApiOperation(value = "更新id为1的员工数据") // <------ API中描述摘要
+	public JsonResult update(@ApiParam(value = "姓名", example = "张三") @RequestParam("lastName") String lastName,
+			@ApiParam(value = "邮箱", example = "zs@test.com") @RequestParam("email") String email,
+			@ApiParam(value = "性别", example = "1") @RequestParam("gender") Integer gender,
+			@ApiParam(value = "年龄", example = "18") @RequestParam("age") Integer age) {
+
+		Employee employee = Employee.builder().lastName(lastName).email(email).gender(gender).age(age).build();
+		employee.setId(1); // <------ 指定要更新的实体在数据表中的id
+
+		System.out.println("employee id -> " + employee.getId());
+		Integer resultInteger = employeeMapper.updateById(employee); // <------ updateById 更新
+		System.out.println("employee id -> " + employee.getId());
+
+		if (resultInteger == 1) {
+			return JsonResult.ok();
+		}
+
+		return JsonResult.error();
+	}
+
+	@PostMapping("xGender")
+	@ApiOperation(value = "传入员工的id，更改其性别")
+	public JsonResult xGenger(@ApiParam(value = "id", example = "1") @RequestParam("id") Integer id) {
+
+		Employee employee = employeeMapper.selectById(id);
+
+		if (null == employee) {
+			return JsonResult.error(0, "Employee not found");
+		}
+
+		Map<String, Object> map = new HashMap<>();
+		Integer resultInteger = null;
+		if (employee.getGender() == 0) {
+			map.put("id", id);
+			map.put("gender", 1);
+			resultInteger = employeeMapper.updateByMap(map);
+		}
+		if (employee.getGender() == 1) {
+			map.put("id", id);
+			map.put("gender", 0);
+			resultInteger = employeeMapper.updateByMap(map);
+		}
+
+		if (null != resultInteger && resultInteger.equals(1)) {
+			return JsonResult.ok(1, "Success");
+		}
+
+		return JsonResult.error(2, "Other error");
 	}
 
 	@GetMapping("delete")
@@ -168,12 +198,13 @@ public class EmployeeController {
 
 		return JsonResult.error();
 	}
-	
+
 	@GetMapping("deleteAll")
 	public JsonResult deleteAll() {
-		
-		employeeMapper.delete(new QueryWrapper<Employee>().last("")); // <------ 传入个null或者传入这个就是：DELETE FROM tb_t_employee
-		
+
+		employeeMapper.delete(new QueryWrapper<Employee>().last("")); // <------ 传入个null或者传入这个就是：DELETE FROM
+																		// tb_t_employee
+
 		return JsonResult.ok();
 	}
 
