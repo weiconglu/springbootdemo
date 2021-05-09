@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+
+        /**
+         * 函数本质是函数对象
+         * @type {Function}
+         */
+        let fun1 = new Function("console.log('函数本质是对象')");
+
+        console.log(typeof fun1);
+
+        /**
+         * 调用函数
+         * 语法：函数名()
+         */
+        fun1();
+
+        // 函数的声明，以无参无返回值为例
+        // 方式1
+        let fun2 = function(){
+            console.log("函数的声明，方式1")
+        };
+        fun2();
+
+        // 方式2
+        function fun3(){
+            console.log("函数的声明，方式2");
+        }
+        fun3();
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
