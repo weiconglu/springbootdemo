@@ -30,7 +30,7 @@ public class SwaggerConfig {
 	public Docket docket(Environment environment) {
 
 		// 如果是开发环境就启用swagger
-		boolean flag = environment.acceptsProfiles(Profiles.of("dev"));
+		boolean flag = environment.acceptsProfiles(Profiles.of("dev", "pro"));
 		if (flag) {
 			System.err.println("当前处在开发环境，启用Swagger");
 		}
