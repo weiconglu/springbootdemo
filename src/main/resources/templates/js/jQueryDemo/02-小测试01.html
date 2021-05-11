@@ -9,7 +9,6 @@
 
 <input type="text" id="input1">
 <input type="button" value="添加" id="addBtn">
-<input type="button" value="插入" id="insertBtn">
 <input type="button" value="删除" id="delBtn">
 <input type="button" value="清除" id="clearBtn">
 
@@ -24,14 +23,30 @@
 </body>
 
 <script>
-    let address_ul = $("#div1 ul");
     let input1 = $("#input1");
 
+    // 添加
     $("#addBtn").click(function () {
         let text = input1.val();
         if (!(text == "")) {
-            alert(text);
+            $("ul").append("<li>" + text + "</li>")
         }
+    });
+
+    // 删除
+    $("#delBtn").click(function () {
+        let text = input1.val();
+        // 使用each()来遍历获取到的每个<li>元素
+        $("li").each(function () {
+            console.log($(this));
+            if (text == $(this).text()) {
+                $(this).remove();
+            }
+        });
+    });
+
+    $("#clearBtn").click(function (){
+        input1.val(""); // <-- val() 设置或返回匹配元素的值
     });
 
 </script>
