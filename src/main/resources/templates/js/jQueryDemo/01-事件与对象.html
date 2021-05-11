@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="jquery-3.6.0.js"></script>
+    <script>
+        // onload方法
+        $(function (){
+            // alert("jQuery引入成功");
+
+            // 绑定btn1的点击事件
+            $("#btn1").click(function (){
+                // alert("绑定点击事件成功");
+                let jqObj = $("#input1"); // <-- 获取为jQuery对象，本质是一个数组
+                // alert(jqObj.val());
+                // console.log(jqObj);
+                let jsObj = jqObj[0];  // <-- jQuery对象的首元素即为该组件的js对象，与 jsObj = jqObj.get(0); 等效
+                alert(jsObj.value);
+            });
+
+            // 绑定btn2的点击事件
+            $("#btn2").click(function () {
+                let jsObj = document.getElementById("input1");
+                // alert(jsObj.value);
+                // 将js对象转换成jQuery对象
+                let jqObj = $(jsObj);
+                alert(jqObj.val());
+            });
+
+            // $ 等效于 jQuery，是其简写
+            let jqObj1 = $("#btn1");
+            let jqObj2 = jQuery("#btn1");
+            console.log(jqObj1);
+            console.log(jqObj2);
+
+        });
+
+    </script>
+</head>
+<body>
+<input type="text" id="input1">
+<input type="button" value="jq转js" id="btn1">
+<input type="button" value="js转jq" id="btn2">
+</body>
+</html>

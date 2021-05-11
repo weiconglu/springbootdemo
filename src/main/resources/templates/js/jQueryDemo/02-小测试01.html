@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="jquery-3.6.0.js"></script>
+</head>
+<body>
+
+<input type="text" id="input1">
+<input type="button" value="添加" id="addBtn">
+<input type="button" value="插入" id="insertBtn">
+<input type="button" value="删除" id="delBtn">
+<input type="button" value="清除" id="clearBtn">
+
+<div id="div1">
+    <ul>
+        <li>北京</li>
+        <li>上海</li>
+        <li>广州</li>
+    </ul>
+</div>
+
+</body>
+
+<script>
+    let address_ul = $("#div1 ul");
+    let input1 = $("#input1");
+
+    $("#addBtn").click(function () {
+        let text = input1.val();
+        if (!(text == "")) {
+            alert(text);
+        }
+    });
+
+</script>
+</html>
