@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Title</title>
+		<script>
+			/**
+			 * 使用这种方法创建的对象类型都是Object
+			 * @param {Object} name
+			 * @param {Object} age
+			 * @param {Object} gender
+			 */
+			function createPerson(name, age, gender) {
+				let obj = {};
+				obj.name = name;
+				obj.age = age;
+				obj.gender = gender;
+				obj.toString = function() {
+					return "name=" + name + ", age=" + age + ", gender=" + gender;
+				}
+				return obj;
+			}
+			
+			let person1 = createPerson("张三",18,"男");
+			console.log(person1.toString());
+			
+		</script>
+	</head>
+	<body>
+
+	</body>
+</html>

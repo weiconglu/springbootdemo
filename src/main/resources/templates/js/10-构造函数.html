@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Title</title>
+		<script>
+			/**
+			 * 构造函数就是一个普通函数
+			 * 构造函数与普通函数的区别就是调用方式不同
+			 * 普通函数直接调用，而构造函数需要使用new关键字来调用
+			 * 
+			 * 构造函数的执行过程：
+			 * 	1、立刻创建一个新的对象
+			 * 	2、将新建的对象设置为函数的this
+			 * 	3、逐行执行函数中的代码
+			 * 	4、将新建的对象作为返回值返回
+			 * 
+			 * this的情况：
+			 * 	1、当以函数的形式调用时，this是window
+			 * 	2、当以方法的形式调用时，谁调用方法this就是谁
+			 * 	3、当以构造函数的形式调用时，this就是新创建的那个对象
+			 */
+
+			function Person(name, age, gender) {
+				this.name = name;
+				this.age = age;
+				this.gender = gender;
+				this.sayMyself = function() {
+					return "name=" + this.name + ", age=" + this.age + ", gender=" + this.gender;
+				}
+			}
+
+			let person1 = new Person("孙悟空", 18, "男");
+
+			console.log(person1);
+			console.log(person1.sayMyself());
+		</script>
+	</head>
+	<body>
+
+	</body>
+</html>

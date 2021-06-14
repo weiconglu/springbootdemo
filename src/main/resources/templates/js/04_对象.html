@@ -52,6 +52,20 @@
          * 对象的属性值可以是任意数据类型
          */
 
+        /**
+         * 使用 对象名[变量]  来取对象的属性值
+         */
+        let person = {
+            name: "张三",
+            "age": 18
+        }
+
+        let a = "name";
+        // 以下三种取值结果是一样的
+        console.log(person.name);
+        console.log(person["name"]);
+        console.log(person[a]);
+
     </script>
 </head>
 <body>

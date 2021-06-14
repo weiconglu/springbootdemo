@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Title</title>
+		<script>
+			/**
+			 * Uncaught ReferenceError: a is not defined
+			 */
+			// console.log(a);
+
+			/**
+			 * Uncaught ReferenceError: a is not defined
+			 */
+			// a;
+			// console.log(a);
+
+			/**
+			 * undefined
+			 */
+			// var a;
+			// console.log(a);
+
+			/**
+			 * undefined
+			 */
+			// let a;
+			// console.log(a);
+
+			/**
+			 * 123
+			 */
+			// a = 123; // 相当于 window.a = 123;
+			// console.log(a);
+
+			/**
+			 * undefined
+			 * 使用var声明的变量，会在所有的代码执行之前被声明，但是不会被赋值
+			 * 下面的代码相当于
+			 * var a;
+			 * console.log(a);
+			 * a = 123;
+			 */
+			// console.log(a);
+			// var a = 123;
+
+			/**
+			 * Uncaught ReferenceError: Cannot access 'a' before initialization
+			 */
+			// console.log(a);
+			// let a = 123;
+
+			/**
+			 * 使用函数声明形式声明的函数，在所有代码执行之前就被创建
+			 */
+			fun1();
+			function fun1() {
+				console.log("我是一个函数");
+			}
+
+			/**
+			 * Uncaught TypeError: fun2 is not a function
+			 * 使用函数表达式创建的函数，不会被声明提前，所以不能在声明前调用
+			 */
+			// fun2();
+			// var fun2 = function(){
+			// 	console.log("我也是一个函数");
+			// }
+			
+		</script>
+	</head>
+	<body>
+
+	</body>
+</html>
