@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>链接表达式</title>
+<!-- static目录是根目录 -->
+<!-- 原始方式引用 -->
+<!-- <script src="js/test.js" type="text/javascript"></script> -->
+<!-- <script src="/springbootdemo/js/test.js" type="text/javascript"></script> -->
+<!-- th绝对路径引用 -->
+<script th:src="@{/js/test.js}" type="text/javascript"></script>
+<script>
+	test();
+</script>
+</head>
+<body>
+<input type="text" id="text1" ></input>
+<a th:href="@{http://www.baidu.com}">百度一下</a>
+</body>
+</html>

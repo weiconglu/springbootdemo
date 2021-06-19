@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>变量表达式</title>
 </head>
 <body>
 	<div>
@@ -19,7 +19,7 @@
 		员工邮箱：<label th:text="${emp.email}"></label><br />
 		<hr>
 		public属性直接引用：<br />
-		用户名：<lable th:text="${user}"></lable><br />
+		用户名：<lable th:text="${user}"></lable><br /><!-- user的toString()方法返回值 -->
 		用户名：<lable th:text="${user.userName}"></lable><br />
 		性别：<lable th:text="${user.gender}"></lable><br />
 		地址：<lable th:text="${user.address}"></lable><br />

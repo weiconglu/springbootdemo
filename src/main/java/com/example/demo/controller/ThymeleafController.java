@@ -35,4 +35,9 @@ public class ThymeleafController {
 		return "var_expression";
 	}
 
+	@GetMapping("/link_expression")
+	public String linkExpression(Model model) {
+		return "link_expression";
+	}
+
 }
