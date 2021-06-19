@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div>
+		基本数据类型：<br /> 
+		用户名：<span th:text="${username}"></span><br />
+		年龄：<span th:text="${age}"></span><br /> 
+		<hr>
+		引用数据类型：<br />
+		员工id：<label th:text="${emp.id}"></label><br />
+		员工姓名：<label th:text="${emp.lastName}"></label><br />
+		员工性别：<label th:text="${emp.gender}"></label><br />
+		员工年龄：<label th:text="${emp.getAge()}"></label><br />
+		员工邮箱：<label th:text="${emp.email}"></label><br />
+		<hr>
+		public属性直接引用：<br />
+		用户名：<lable th:text="${user}"></lable><br />
+		用户名：<lable th:text="${user.userName}"></lable><br />
+		性别：<lable th:text="${user.gender}"></lable><br />
+		地址：<lable th:text="${user.address}"></lable><br />
+		宠物名：<lable th:text="${user.dog.dogName}"></lable><br />
+	</div>
+</body>
+</html>
