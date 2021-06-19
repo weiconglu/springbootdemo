@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.model.Dog;
 import com.example.demo.model.Employee;
@@ -37,7 +38,19 @@ public class ThymeleafController {
 
 	@GetMapping("/link_expression")
 	public String linkExpression(Model model) {
+		model.addAttribute("name", "李四");
 		return "link_expression";
+	}
+
+	/*
+	 * @RequestParam 和 @PathVariable
+	 * 注解是用于从request中接收请求的，两个都可以接收参数，关键点不同的是@RequestParam
+	 * 是从request里面拿取值，而 @PathVariable 是从一个URI模板里面来填充
+	 */
+	@GetMapping("/hi")
+	public String hi(Model model, @RequestParam String name) {
+		model.addAttribute("name", name);
+		return "hi";
 	}
 
 }
