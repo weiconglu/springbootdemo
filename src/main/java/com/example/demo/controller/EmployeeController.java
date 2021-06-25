@@ -18,6 +18,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.demo.common.JsonResult;
 import com.example.demo.mapper.EmployeeMapper;
 import com.example.demo.model.Employee;
+import com.example.demo.service.EmployeeService;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -28,6 +29,13 @@ public class EmployeeController {
 
 	@Autowired
 	private EmployeeMapper employeeMapper;
+
+	private EmployeeService employeeService;
+
+	@Autowired
+	public void setEmployeeService(EmployeeService employeeService) {
+		this.employeeService = employeeService;
+	}
 
 	@ApiOperation(value = "插入200条测试数据到数据表中") // <------ API中描述摘要
 	@GetMapping("insertTestData")
@@ -47,7 +55,7 @@ public class EmployeeController {
 			employee.setGender(gender);
 			employee.setAge(age);
 
-			employeeMapper.insert(employee);
+			employeeService.save(employee);
 		}
 
 		return JsonResult.ok();
@@ -61,18 +69,10 @@ public class EmployeeController {
 
 		// 使用lombok的builder()来生成对象
 		Employee employee = Employee.builder().lastName(lastName).email(email).gender(gender).age(age).build();
-//		employee.setLastName(lastName);
-//		employee.setEmail(email);
-//		employee.setGender(gender);
-//		employee.setAge(age);
-
-//		employee.setPassword("******"); // <------ 表中不存在的字段
-
-		System.out.println("employee id -> " + employee.getId());
-		Integer resultInteger = employeeMapper.insert(employee); // <------ mybatisplus自动将主键值回写到实体类
 		System.out.println("employee id -> " + employee.getId());
 
-		if (resultInteger == 1) {
+		if (employeeService.save(employee)) { // <------ mybatisplus自动将主键值回写到实体类
+			System.out.println("employee id -> " + employee.getId());
 			return JsonResult.ok();
 		}
 
@@ -82,7 +82,7 @@ public class EmployeeController {
 	@GetMapping("select/{id}")
 	public JsonResult select(@PathVariable Integer id) {
 
-		Employee employee = employeeMapper.selectById(id);
+		Employee employee = employeeService.getById(id);
 		if (null != employee) {
 			JsonResult result = JsonResult.ok();
 			Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -100,7 +100,7 @@ public class EmployeeController {
 		Map<String, Object> map = new HashMap<String, Object>(); // <------ 表字段 map 对象
 		map.put("last_name", "Tom2"); // <------ 这里要将数据表中的字段名put进去，而不是实体类中的属性名
 
-		List<Employee> list = employeeMapper.selectByMap(map);
+		List<Employee> list = employeeService.listByMap(map);
 		if (list.size() != 0) {
 			Map<String, Object> resultMap = new HashMap<>();
 			resultMap.put("Employees", list);
@@ -117,7 +117,7 @@ public class EmployeeController {
 
 		// 分页查询，必须先在MybatisPlusConfig.java类中添加分页插件的配置后才能使用
 		List<Employee> list = employeeMapper.selectPage(new Page<Employee>(pageNum, size), null).getRecords();
-
+//		List<Employee> list = employeeService.page(new Page<Employee>(pageNum, size), null).getRecords();
 		if (list.size() != 0) {
 
 			// 数据库中总记录数查询出来返回

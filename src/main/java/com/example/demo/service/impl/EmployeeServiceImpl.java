@@ -14,7 +14,4 @@ import com.example.demo.service.EmployeeService;
  */
 @Service
 public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> implements EmployeeService {
-	
-	
-
 }
